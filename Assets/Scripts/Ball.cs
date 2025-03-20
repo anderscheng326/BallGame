@@ -1,7 +1,9 @@
+using System.Data;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    int health = 20;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,5 +32,11 @@ public class Ball : MonoBehaviour
     {
         
     }
- 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log($"Bounced - Health remaining: "+health);
+        health--;
+        if (health < 0)
+            Destroy(gameObject);
+    }
 }
