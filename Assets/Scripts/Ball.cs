@@ -4,6 +4,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     int health = 20;
+    int colcnt = 0;
+
+    float timer = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,24 +23,41 @@ public class Ball : MonoBehaviour
         transform.localScale = localScale;
         Debug.Log("double the scale of object");
 
-        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();       
-        rb2d.AddForce(new Vector2(2, 2),ForceMode2D.Impulse);
+        float rndmag = Random.Range(3, 6);
+        float rndangl = Random.Range(0, 360);
+        float rnddirx = Mathf.Cos(rndangl);
+        float rnddiry = Mathf.Sin(rndangl);
 
-        //int rndmag = Random.Range(3, 6);
-        //int rndangl = Random.Range(0, 360); 
-        //(Mathf.Cos(rndangl), Mathf.Sin(rndangl)); 
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        Debug.Log("Angle = " + rndangl + " Magnitude = " + rndmag + " Direction = " + rnddirx + "," + rnddiry);
+        rb2d.AddForce(new Vector2((rndmag * rnddirx),(rndmag * rnddiry)),ForceMode2D.Impulse);
+
+        
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        timer = Time.deltaTime;
+        //Debug.Log("Timer: " + timer);
+        if (timer > 2.0f)
+        {
+            Debug.Log("-----------------------Time: " + timer);
+            timer = 0;
+        }
+
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log($"Bounced - Health remaining: "+health);
+        Debug.Log("BANG - Collisions: "+colcnt);
         health--;
+        colcnt++;
         if (health < 0)
+        {
             Destroy(gameObject);
+            Debug.Log("Ball Destroyed, Game Over!");
+        }
     }
 }
