@@ -18,10 +18,10 @@ public class Ball : MonoBehaviour
         Debug.Log("double the scale of object");
 
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();       
-        rb2d.AddForce(new Vector2(2, -1),ForceMode2D.Impulse);
+        rb2d.AddForce(new Vector2(2, 2),ForceMode2D.Impulse);
 
-        int rndmag = Random.Range(3, 6);
-        int rndangl = Random.Range(0, 360);
+        //int rndmag = Random.Range(3, 6);
+        //int rndangl = Random.Range(0, 360); 
         //(Mathf.Cos(rndangl), Mathf.Sin(rndangl)); 
     }
 
